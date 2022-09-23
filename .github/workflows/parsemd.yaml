@@ -39,6 +39,7 @@ jobs:
         run: |
           ls
           python -m pip install --upgrade pip
+          pip install Pygments
           pip install markdown2
           python build.py
       - name: Commit
