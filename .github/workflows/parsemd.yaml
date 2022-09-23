@@ -1,4 +1,4 @@
-name: 'test-python-and-clone'
+name: 'Markdown to Html'
 
 on:
   workflow_dispatch:
@@ -9,25 +9,8 @@ on:
       - '!readme.md'
       - '!**.gitignore'
 
-#permissions:
-#  contents: write
-#  pages: write
-#  id-token: write
-#  actions: write
-#  checks: write
-#  deployments: write
-#  packages: write
-
-# Allow one concurrent deployment
-#concurrency:
-#  group: "pages"
-#  cancel-in-progress: true
-
 jobs:
   Markdown2Html:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -53,14 +36,3 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-#          branch: ${{ github.ref }}
-#      - name: Setup Pages
-#        uses: actions/configure-pages@v2
-#      - name: Upload artifact
-#        uses: actions/upload-pages-artifact@v1
-#        with:
-#          # Upload entire repository
-#          path: '.'
-#      - name: Deploy to GitHub Pages
-#        id: deployment
-#        uses: actions/deploy-pages@v1
