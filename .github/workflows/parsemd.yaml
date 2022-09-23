@@ -3,7 +3,6 @@ name: 'Markdown to Html'
 on:
   workflow_dispatch:
   push:
-    branches: ["master"]
     paths:
       - '**.md'
       - '!readme.md'
