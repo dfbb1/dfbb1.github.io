@@ -19,6 +19,7 @@ jobs:
           python-version: 3.8
       - name: run test.py
         run: |
+          ls
           echo "print('hello, python is running')" > test.py
           python -m pip install --upgrade pip
           pip install markdown2
