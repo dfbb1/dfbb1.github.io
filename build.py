@@ -25,7 +25,7 @@ sitemap = './sitemap.json'
 
 def pre_create_dir(parent: str):
     if not os.path.exists(parent) or not os.path.isdir(parent):
-        os.mkdir(parent)
+        os.makedirs(parent)
 
 
 def parse_tags(meta_line: str):
