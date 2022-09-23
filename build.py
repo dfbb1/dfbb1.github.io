@@ -66,7 +66,7 @@ if __name__ == '__main__':
         # print(html)
         html_dir = 'pages/' + tags[1]
         # TODO 文件名校验，ascii
-        short_name = md[:md.rindex('.')] + '.html'
+        short_name = md[:md.rindex('.')] + '.html' if '.' in md else md + '.html'
         # 写入文件
         full_filename = html_dir + '/' + short_name
         if not os.path.exists(full_filename):
