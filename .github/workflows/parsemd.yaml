@@ -9,10 +9,14 @@ on:
       - '!readme.md'
       - '!**.gitignore'
 
-permissions: write-all
-#  contents: write
-#  pages: write
-#  id-token: write
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  actions: write
+  checks: write
+  deployments: write
+  packages: write
 
 # Allow one concurrent deployment
 concurrency:
@@ -49,6 +53,7 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
