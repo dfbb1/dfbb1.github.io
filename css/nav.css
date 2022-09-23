@@ -1,9 +1,9 @@
 /* 导航栏*/
 .nav {
-    background: #171717;
+    background: #ffffff;
     width: 25%;
     padding: 5rem 3rem 2rem 3rem;
-    color: white;
+    color: #050505;
 }
 
 .nav .nav-head {
