@@ -22,17 +22,17 @@
 
 <p>这是一段代码：  </p>
 
-<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">engine</span> <span class="o">=</span> <span class="n">markdown2</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="n">extras</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fenced-code-blocks&#39;</span><span class="p">])</span>
-    <span class="n">parent_dir</span> <span class="o">=</span> <span class="s1">&#39;resources&#39;</span>
-    <span class="n">mds</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">parent_dir</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">md</span> <span class="ow">in</span> <span class="n">mds</span><span class="p">:</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">parent_dir</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">md</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-        <span class="n">tags</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
-        <span class="n">html</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
-</code></pre></div>
+<pre><code>if __name__ == '__main__':
+    engine = markdown2.Markdown(extras=['fenced-code-blocks'])
+    parent_dir = 'resources'
+    mds = os.listdir(parent_dir)
+    for md in mds:
+        f = open(parent_dir + os.sep + md, mode='r', encoding='utf-8')
+        tags = f.readline().strip().split('|')
+        print('=' * 60)
+        html = engine.convert(f.read())
+        print(html)
+</code></pre>
 
 <p>这是无序列表：  </p>
 
