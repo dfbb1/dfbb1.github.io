@@ -1,1 +1,86 @@
-hello world
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>一念blog</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/page.css">
+    <script src="./js/common.js"></script>
+    <script src="./js/data.js"></script>
+    <style>
+
+    </style>
+    <script>
+        const pageSize = 5;
+        var currentPage = 1;
+        var pages = [];
+        for (let k in pageMap) {
+            pages.push([k, pageMap[k]['title'], pageMap[k]['date']]);
+        }
+        pages = pages.sort((a, b) => a[2] < b[2] ? 1 : -1)
+
+        var total = pages.length;
+        var totalPage = Math.ceil(pages.length / pageSize);
+
+        function printPages() {
+            let pageListBody = document.getElementById('page-list')
+            pageListBody.innerHTML = '';
+
+            let startIndex = (currentPage - 1) * pageSize;
+            for (let page of pages.slice(startIndex, startIndex + Math.min(pageSize, total - startIndex))) {
+                let preDiv = document.createElement('div')
+                preDiv.classList = 'page-link';
+
+                let pageTitle = document.createElement('a');
+                pageTitle.href = page[0];
+                pageTitle.text = page[1];
+                // pageTitle.target = '_blank';
+
+                preDiv.appendChild(pageTitle);
+                pageListBody.appendChild(preDiv);
+            }
+
+            document.getElementById('c-index').innerText = '' + currentPage;
+            document.getElementById('total-page').innerText = '' + totalPage;
+        }
+
+        function goPage(shiftNum) {
+            let tempIndex = currentPage + shiftNum;
+            if (tempIndex >= 1 && tempIndex <= totalPage) {
+                currentPage = tempIndex;
+                printPages();
+            }
+        }
+
+        window.onload = function () {
+            printPages();
+            initFolder();
+        }
+
+    </script>
+</head>
+<body>
+<div id="nav" class="nav">
+    <div class="nav-head">一念</div>
+    <div class="nav-short">心能转物，即同如来</div>
+    <div class="nav-btn">refer</div>
+    <div class="nav-btn">分类</div>
+    <div class="nav-btn">归档</div>
+    <div id="hide-btn-left">《</div>
+</div>
+
+<div id="content" class="content">
+    <div id="hide-btn-right">》</div>
+
+    <div id="page-list"></div>
+    <div id="page-bar">
+        <span class="page-bar-btn" onclick="goPage(-1)">上一页</span>
+        <span id="c-index">1</span><span>/</span><span id="total-page">1</span>
+        <span class="page-bar-btn" onclick="goPage(1)">下一页</span>
+    </div>
+</div>
+
+</body>
+</html>

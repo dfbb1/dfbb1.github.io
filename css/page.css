@@ -1,0 +1,40 @@
+/*内容栏*/
+.content {
+    background: #f3f3e9;
+    width: 75%;
+    padding: 2rem 4rem;
+    overflow-y: scroll;
+    line-height: 2rem;
+}
+.content .page-link {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+#page-bar {
+    position: absolute;
+    bottom: 4rem;
+    right: 20%;
+}
+#page-bar span {
+
+}
+.page-bar-btn {
+    color: blue;
+    cursor: pointer;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.nav-head {
+    cursor: pointer;
+}
+h1 {
+    text-align: center;
+}
+h2 {
+    margin-left: 50%;
+    font-weight: normal;
+}
+h2:before {
+    content: "——";
+    padding-right: 0.6rem;
+}
