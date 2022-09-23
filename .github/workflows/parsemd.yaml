@@ -13,6 +13,8 @@ jobs:
   Markdown2Html:
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          pwd
       - name: checkout
         uses: actions/checkout@v3
       - name: install python 3.8
