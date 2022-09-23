@@ -3,25 +3,25 @@ name: 'test-python-and-clone'
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ["master"]
     paths:
       - '**.md'
       - '!readme.md'
       - '!**.gitignore'
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-  actions: write
-  checks: write
-  deployments: write
-  packages: write
+#permissions:
+#  contents: write
+#  pages: write
+#  id-token: write
+#  actions: write
+#  checks: write
+#  deployments: write
+#  packages: write
 
 # Allow one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+#concurrency:
+#  group: "pages"
+#  cancel-in-progress: true
 
 jobs:
   Markdown2Html:
@@ -53,14 +53,14 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: master
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+#          branch: ${{ github.ref }}
+#      - name: Setup Pages
+#        uses: actions/configure-pages@v2
+#      - name: Upload artifact
+#        uses: actions/upload-pages-artifact@v1
+#        with:
+#          # Upload entire repository
+#          path: '.'
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v1
