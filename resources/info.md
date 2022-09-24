@@ -1,4 +1,4 @@
-静态页面生成说明|project|code|test
+静态页面生成说明|project|code|util
 
 # 静态页面生成说明
 ## 工具演示说明
@@ -17,16 +17,17 @@
 
 这是一段代码：  
 ```python
-if __name__ == '__main__':
-    engine = markdown2.Markdown(extras=['fenced-code-blocks'])
-    parent_dir = 'resources'
-    mds = os.listdir(parent_dir)
-    for md in mds:
-        f = open(parent_dir + os.sep + md, mode='r', encoding='utf-8')
-        tags = f.readline().strip().split('|')
-        print('=' * 60)
-        html = engine.convert(f.read())
-        print(html)
+# 测试代码样式
+def parse_tags(meta_line: str):
+    if not meta_line:
+        return ['', default_tag]
+    m = meta_line.strip().split('|')
+    if len(m) == 1:
+        m.append(default_tag)
+    elif len(m) == 2:
+        # todo ascii
+        pass
+    return m
 ```
 
 这是无序列表：  
