@@ -9,20 +9,9 @@
     <link rel="stylesheet" href="./css/page.css">
     <script src="./js/common.js"></script>
     <script src="./js/data.js"></script>
-    <style>
-
-    </style>
     <script>
-
-        function showList() {
-            document.getElementById('content-iframe').style.display = 'none';
-            document.getElementById('content-list').style.display = 'block';
-            document.getElementById('content-tags').style.display = 'none';
-        }
-
         var tagsShowed = false;
-
-        const pageSize = 5;
+        const pageSize = 15;
         var currentPage = 1;
         var pages = [];
         var tagsNum = {};
@@ -80,6 +69,12 @@
                 currentPage = tempIndex;
                 printPages();
             }
+        }
+
+        function showList() {
+            document.getElementById('content-iframe').style.display = 'none';
+            document.getElementById('content-list').style.display = 'block';
+            document.getElementById('content-tags').style.display = 'none';
         }
 
         function showTags() {
@@ -168,7 +163,5 @@
 
     <iframe id="content-iframe"></iframe>
 </div>
-
-
 </body>
 </html>
