@@ -47,7 +47,7 @@ jobs:
           git config --global user.email dongfangbubaijcs@gmail.com
           git config --global user.name dfbb1
           git add .
-          git commit -m "action:`date`"
+          git commit -m "Markdown2Html:`date '+%Y-%m-%d %H:%M'`"
           git pull --rebase
       - name: Push changes
         uses: ad-m/github-push-action@master
