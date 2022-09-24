@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><title>一念blog</title><link rel="stylesheet" href="../../css/nav.css"><link rel="stylesheet" href="../../css/common.css"><link rel="stylesheet" href="../../css/page.css"><link rel="stylesheet" href="../../css/code.css"><script src="../../js/common.js"></script></head><body><div class="i-content"><h1>github.io博客</h1>
+
+<h2>markdown文件自动转html部署</h2>
+
+<h3>搭建</h3>
+
+<ol>
+<li>创建{username}.github.io为名的仓库</li>
+<li>点击右上角头像-Settings-Developer settings-Personal access tokens-Generate new token，这一步用于Github Action Markdown2Html脚本提交代码</li>
+<li>克隆本项目<code>.github/workflows</code>, <code>css</code>,  <code>js</code>, <code>build.py</code>, <code>index.html</code>到自己的仓库  </li>
+<li>新建sitemap.json文件，内容为<code>{}</code>  </li>
+<li>修改页面导航栏及其他样式</li>
+</ol>
+
+<h3>使用说明</h3>
+
+<ol>
+<li>提交html、css、js会触发pages build工作流，将静态文件部署到github.io</li>
+<li>提交.md后缀的文件会触发Markdown2Html工作流，将resource(默认文件夹)下的md文件转为html存入pages目录，然后commit、部署到github.io  </li>
+<li>每次.md文件变更，build.py会先校验md5是否改变，md5不改变不改动，文章的日期为首次生成html时间，可在<code>js/data.js</code>手动调整  </li>
+<li>首页默认展示归档列表，每页展示数再index.html修改<code>const pageSize = 改这里;</code></li>
+</ol>
+
+<h3>存在的问题</h3>
+
+<ol>
+<li>文章使用iframe展示，避免换页闪烁，但是iframe访问地址被记录在浏览器历史记录，返回时会跳到iframe链接地址  </li>
+<li>目前使用markdown2转换html，对.md文本格式要求严格，例如段落后需要加两个空格再换行，否则html不换行</li>
+</ol>
+</div></body></html>
