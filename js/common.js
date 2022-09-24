@@ -1,7 +1,3 @@
-function goHome() {
-    window.location = window.location.href.split('/pages')[0] + '/index.html';
-}
-
 function initFolder() {
     document.getElementById('hide-btn-left').addEventListener('click', function () {
         document.getElementById('nav').style.display = 'none';
@@ -19,3 +15,6 @@ function initFolder() {
         document.getElementById('hide-btn-right').style.display = 'none';
     })
 }
+
+var colorList = ['#d96800', '#0031de', '#36c200', '#313131',
+    '#5100c2', '#bb0300']

@@ -1,4 +1,4 @@
-静态页面生成说明|project|code
+静态页面生成说明|project|code|test
 
 # 静态页面生成说明
 ## 工具演示说明

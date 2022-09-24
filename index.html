@@ -13,11 +13,28 @@
 
     </style>
     <script>
+
+        function showList() {
+            document.getElementById('content-iframe').style.display = 'none';
+            document.getElementById('content-list').style.display = 'block';
+            document.getElementById('content-tags').style.display = 'none';
+        }
+
+        var tagsShowed = false;
+
         const pageSize = 5;
         var currentPage = 1;
         var pages = [];
+        var tagsNum = {};
         for (let k in pageMap) {
-            pages.push([k, pageMap[k]['title'], pageMap[k]['date']]);
+            pages.push([k, pageMap[k]['title'], pageMap[k]['date'], pageMap[k]['tags']]);
+            for (let tag of pageMap[k]['tags']) {
+                if (tag in tagsNum) {
+                    tagsNum[tag] = tagsNum[tag] + 1;
+                } else {
+                    tagsNum[tag] = 1;
+                }
+            }
         }
         pages = pages.sort((a, b) => a[2] < b[2] ? 1 : -1)
 
@@ -25,21 +42,32 @@
         var totalPage = Math.ceil(pages.length / pageSize);
 
         function printPages() {
-            let pageListBody = document.getElementById('page-list')
+            let pageListBody = document.getElementById('page-list');
             pageListBody.innerHTML = '';
 
             let startIndex = (currentPage - 1) * pageSize;
             for (let page of pages.slice(startIndex, startIndex + Math.min(pageSize, total - startIndex))) {
-                let preDiv = document.createElement('div')
+                let preDiv = document.createElement('div');
                 preDiv.classList = 'page-link';
 
                 let pageTitle = document.createElement('a');
-                pageTitle.href = page[0];
-                pageTitle.text = page[1];
-                // pageTitle.target = '_blank';
+                pageTitle.url = page[0];
+                pageTitle.href = 'javascript:void(0)';
+                pageTitle.innerHTML = '<span style="color:black;margin-right: 1rem">[' + page[2].substring(0, 10) + ']</span>' + page[1];
 
                 preDiv.appendChild(pageTitle);
                 pageListBody.appendChild(preDiv);
+
+                pageTitle.addEventListener('click', function (e) {
+                    let oldIframe = document.getElementById('content-iframe');
+                    let contentIframe = document.createElement('iframe');
+                    contentIframe.id = 'content-iframe';
+                    contentIframe.src = e.target.url;
+                    document.getElementById('content-list').style.display = 'none';
+                    document.getElementById('content-tags').style.display = 'none';
+                    contentIframe.style.display = 'block';
+                    oldIframe.replaceWith(contentIframe);
+                })
             }
 
             document.getElementById('c-index').innerText = '' + currentPage;
@@ -54,6 +82,60 @@
             }
         }
 
+        function showTags() {
+            document.getElementById('content-iframe').style.display = 'none';
+            document.getElementById('content-list').style.display = 'none';
+            let contentTags = document.getElementById('content-tags');
+            contentTags.style.display = 'block';
+            if (!tagsShowed) {
+                let i = 0;
+                for (let k of Object.keys(tagsNum)) {
+                    let tagDiv = document.createElement('div');
+                    let tagSpan = document.createElement('span');
+
+                    tagSpan.classList = 'tag-list';
+                    tagSpan.style.color = colorList[i % colorList.length];
+                    i = i + 1;
+                    tagSpan.textContent = k + ' (' + tagsNum[k] + ')';
+                    tagDiv.appendChild(tagSpan);
+                    contentTags.appendChild(tagDiv);
+                    tagSpan.addEventListener('click', function (e) {
+                        let oldTagPages = e.target.parentElement.getElementsByClassName('tag-pages');
+                        if (oldTagPages.length <= 0) {
+                            for (let p of pages) {
+                                if (p[3].includes(k)) {
+                                    let titleList = document.createElement('div');
+                                    titleList.classList = 'tag-pages';
+                                    titleList.innerText = p[1];
+                                    titleList.url = p[0];
+                                    e.target.parentElement.appendChild(titleList)
+                                    titleList.addEventListener('click', function (tle) {
+                                        let oldIframe = document.getElementById('content-iframe');
+                                        let contentIframe = document.createElement('iframe');
+                                        contentIframe.id = 'content-iframe';
+                                        contentIframe.src = tle.target.url;
+                                        document.getElementById('content-list').style.display = 'none';
+                                        document.getElementById('content-tags').style.display = 'none';
+                                        contentIframe.style.display = 'block';
+                                        oldIframe.replaceWith(contentIframe);
+                                    })
+                                }
+                            }
+                        } else {
+                            Array.prototype.forEach.call(oldTagPages, function (element) {
+                                if (element.style.display === 'none') {
+                                    element.style.display = 'block';
+                                } else {
+                                    element.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+            tagsShowed = true;
+        }
+
         window.onload = function () {
             printPages();
             initFolder();
@@ -63,24 +145,30 @@
 </head>
 <body>
 <div id="nav" class="nav">
-    <div class="nav-head">一念</div>
+    <div class="nav-head" onclick="showList()">一念</div>
     <div class="nav-short">心能转物，即同如来</div>
     <div class="nav-btn">refer</div>
-    <div class="nav-btn">分类</div>
-    <div class="nav-btn">归档</div>
+    <div class="nav-btn" onclick="showTags()">分类</div>
+    <div class="nav-btn" onclick="showList()">归档</div>
     <div id="hide-btn-left">《</div>
 </div>
 
 <div id="content" class="content">
     <div id="hide-btn-right">》</div>
-
-    <div id="page-list"></div>
-    <div id="page-bar">
-        <span class="page-bar-btn" onclick="goPage(-1)">上一页</span>
-        <span id="c-index">1</span><span>/</span><span id="total-page">1</span>
-        <span class="page-bar-btn" onclick="goPage(1)">下一页</span>
+    <div id="content-list">
+        <div id="page-list"></div>
+        <div id="page-bar">
+            <span class="page-bar-btn" onclick="goPage(-1)">上一页</span>
+            <span id="c-index">1</span><span>/</span><span id="total-page">1</span>
+            <span class="page-bar-btn" onclick="goPage(1)">下一页</span>
+        </div>
     </div>
+
+    <div id="content-tags"></div>
+
+    <iframe id="content-iframe"></iframe>
 </div>
+
 
 </body>
 </html>
